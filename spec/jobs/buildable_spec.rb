@@ -8,7 +8,6 @@ describe Buildable do
   describe "perform" do
     it 'runs build runner' do
       build_runner = double(:build_runner, run: nil)
-      payload_data = "some data"
       payload = double("Payload", github_repo_id: 1)
       allow(Payload).to receive(:new).with(payload_data).and_return(payload)
       allow(BuildRunner).to receive(:new).and_return(build_runner)
