@@ -23,12 +23,12 @@ describe Buildable do
       repo_updater = double(:repo_updater, run: nil)
       payload = double("Payload", github_repo_id: 1)
       allow(Payload).to receive(:new).with(payload_data).and_return(payload)
-      allow(RepoUpdater).to receive(:new).and_return(repo_updater)
+      allow(UpdateRepoStatus).to receive(:new).and_return(repo_updater)
 
       BuildableTestJob.perform_now(payload_data)
 
       expect(Payload).to have_received(:new).with(payload_data)
-      expect(RepoUpdater).to have_received(:new).with(payload)
+      expect(UpdateRepoStatus).to have_received(:new).with(payload)
       expect(repo_updater).to have_received(:run)
     end
   end

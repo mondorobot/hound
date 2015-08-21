@@ -1,4 +1,4 @@
-class RepoUpdater
+class UpdateRepoStatus
   pattr_initialize :payload
 
   def run

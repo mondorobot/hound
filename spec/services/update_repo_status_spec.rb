@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe RepoUpdater do
+describe UpdateRepoStatus do
   describe "#run" do
     context "For an active repo" do
       it "updates the repo full_github_name" do
@@ -13,7 +13,7 @@ describe RepoUpdater do
           private_repo?: repo.private,
         )
 
-        RepoUpdater.new(payload).run
+        UpdateRepoStatus.new(payload).run
 
         repo.reload
         expect(repo.full_github_name).to eq(expected_repo_name)
@@ -29,7 +29,7 @@ describe RepoUpdater do
           private_repo?: expected_status,
         )
 
-        RepoUpdater.new(payload).run
+        UpdateRepoStatus.new(payload).run
 
         repo.reload
         expect(repo.private).to eq(expected_status)
@@ -45,7 +45,7 @@ describe RepoUpdater do
             private_repo?: true,
           )
 
-          RepoUpdater.new(payload).run
+          UpdateRepoStatus.new(payload).run
 
           repo.reload
           expect(repo).not_to be_active
@@ -62,7 +62,7 @@ describe RepoUpdater do
             private_repo?: false,
           )
 
-          RepoUpdater.new(payload).run
+          UpdateRepoStatus.new(payload).run
 
           repo.reload
           expect(repo).to be_active
@@ -81,7 +81,7 @@ describe RepoUpdater do
             private_repo?: true,
           )
 
-          RepoUpdater.new(payload).run
+          UpdateRepoStatus.new(payload).run
 
           repo.reload
           expect(repo).not_to be_active
@@ -98,7 +98,7 @@ describe RepoUpdater do
             private_repo?: true,
           )
 
-          RepoUpdater.new(payload).run
+          UpdateRepoStatus.new(payload).run
 
           repo.reload
           expect(repo).not_to be_active
