@@ -160,7 +160,7 @@ describe Payload do
         }
         payload = Payload.new(payload_json)
 
-        expect(payload.private_repo?).to be_truthy
+        expect(payload.private_repo?).to eq(true)
       end
     end
 
@@ -173,7 +173,7 @@ describe Payload do
         }
         payload = Payload.new(payload_json)
 
-        expect(payload.private_repo?).to be_falsy
+        expect(payload.private_repo?).to eq(false)
       end
     end
   end
