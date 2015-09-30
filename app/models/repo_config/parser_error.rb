@@ -1,4 +1,4 @@
-class RepoConfig
+module RepoConfig
   class ParserError < StandardError
     attr_reader :filename
 
