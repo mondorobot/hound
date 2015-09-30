@@ -4,7 +4,7 @@ module RepoConfig
 
     def config(language)
       if legacy? && language == "ruby"
-        hound_config
+        hound_config.config
       else
         {}
       end
@@ -17,7 +17,7 @@ module RepoConfig
     end
 
     def configured_languages
-      hound_config.keys
+      hound_config.config.keys
     end
 
     def supported_languages
