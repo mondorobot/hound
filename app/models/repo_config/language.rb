@@ -1,5 +1,16 @@
 module RepoConfig
   class Language
+    SUPPORTED_LANGUAGES = %w(
+      coffeescript
+      go
+      haml
+      javascript
+      python
+      ruby
+      scss
+      swift
+    )
+
     pattr_initialize :commit, :hound_config
 
     def config(language)

@@ -1,0 +1,27 @@
+module RepoConfig
+  class Legacy
+    pattr_initialize :commit, :hound_config
+
+    def config(language)
+      if legacy? && language == "ruby"
+        hound_config
+      else
+        {}
+      end
+    end
+
+    private
+
+    def legacy?
+      (configured_languages & supported_languages).empty?
+    end
+
+    def configured_languages
+      hound_config.keys
+    end
+
+    def supported_languages
+      RepoConfig::Language::SUPPORTED_LANGUAGES
+    end
+  end
+end
