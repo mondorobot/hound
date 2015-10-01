@@ -23,6 +23,16 @@ module RepoConfig
       end
     end
 
+    def raw_config(language)
+      if has_language? language
+        config_file_path = config_path_for(language)
+
+        content_for(config_file_path)
+      else
+        ""
+      end
+    end
+
     private
 
     FILE_TYPES = {
@@ -34,12 +44,12 @@ module RepoConfig
     }
 
     def has_language?(language)
-      hound_config[language].present?
+      hound_config.config[language].present?
     end
 
     def config_path_for(language)
-      hound_config[language] &&
-        hound_config[language]["config_file"]
+      hound_config.config[language] &&
+        hound_config.config[language]["config_file"]
     end
 
     def load_config(filepath, filetype)
@@ -71,7 +81,11 @@ module RepoConfig
     end
 
     def content_for(filepath)
-      commit.file_content(filepath)
+      if filepath.present?
+        commit.file_content(filepath)
+      else
+        ""
+      end
     end
   end
 end

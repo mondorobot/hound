@@ -202,6 +202,60 @@ describe RepoConfig::Language do
     end
   end
 
+  describe "#raw_config" do
+    context "when the given language has a configured config file" do
+      it "returns the raw config" do
+        raw_config = <<-EOS.strip_heredoc
+          StringLiterals:
+            EnforcedStyle: single_quotes
+
+          LineLength:
+            Max: 90
+        EOS
+        commit = stubbed_commit("config/rubocop.yml" => raw_config)
+        hound_config = double(
+          "HoundConfig", config: {
+            "ruby" => {
+              "enabled" => true,
+              "config_file" => "config/rubocop.yml",
+            },
+          },
+        )
+        language_config = RepoConfig::Language.new(commit, hound_config)
+
+        result = language_config.raw_config("ruby")
+
+        expect(result).to eq raw_config
+      end
+    end
+
+    context "when the given language not dot have a configured config file" do
+      it "returns an empty string" do
+        raw_config = <<-EOS.strip_heredoc
+          StringLiterals:
+            EnforcedStyle: single_quotes
+
+          LineLength:
+            Max: 90
+        EOS
+        commit = stubbed_commit("config/rubocop.yml" => raw_config)
+        hound_config = double(
+          "HoundConfig", config: {
+            "ruby" => {
+              "enabled" => true,
+              "config_file" => "",
+            },
+          },
+        )
+        language_config = RepoConfig::Language.new(commit, hound_config)
+
+        result = language_config.raw_config("ruby")
+
+        expect(result).to eq ""
+      end
+    end
+  end
+
   def stubbed_commit(configuration)
     commit = double("Commit", file_content: <<-EOS.strip_heredoc)
       ruby:

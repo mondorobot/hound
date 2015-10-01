@@ -10,6 +10,14 @@ module RepoConfig
       end
     end
 
+    def raw_config(language)
+      if legacy? && language == "ruby"
+        hound_config.raw_config
+      else
+        ""
+      end
+    end
+
     private
 
     def legacy?

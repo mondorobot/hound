@@ -1,5 +1,5 @@
 # Load and parse config files from GitHub repo
-class RepoConfig
+module RepoConfig
   HOUND_CONFIG = ".hound.yml"
   BETA_LANGUAGES = %w(
     python
