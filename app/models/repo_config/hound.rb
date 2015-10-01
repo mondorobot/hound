@@ -2,7 +2,11 @@ module RepoConfig
   class Hound
     HOUND_CONFIG = ".hound.yml"
 
-    pattr_initialize :commit
+    attr_reader :commit
+
+    def initialize(commit)
+      @commit = commit
+    end
 
     delegate :[], to: :config
 

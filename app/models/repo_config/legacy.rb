@@ -1,6 +1,6 @@
 module RepoConfig
   class Legacy
-    pattr_initialize :commit, :hound_config
+    pattr_initialize :hound_config
 
     def config(language)
       if legacy? && language == "ruby"

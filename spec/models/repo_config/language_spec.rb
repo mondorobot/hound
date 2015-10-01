@@ -17,14 +17,16 @@ describe RepoConfig::Language do
             EOS
           )
           hound_config = double(
-            "HoundConfig", config: {
+            "HoundConfig",
+            commit: commit,
+            config: {
               "ruby" => {
                 "enabled" => true,
                 "config_file" => "config/rubocop.yml",
               },
             },
           )
-          language_config = RepoConfig::Language.new(commit, hound_config)
+          language_config = RepoConfig::Language.new(hound_config)
 
           result = language_config.config("ruby")
 
@@ -44,14 +46,16 @@ describe RepoConfig::Language do
                 EOS
               )
               hound_config = double(
-                "HoundConfig", config: {
+                "HoundConfig",
+                commit: commit,
+                config: {
                   "ruby" => {
                     "enabled" => true,
                     "config_file" => "config/rubocop.yml",
                   },
                 },
               )
-              language_config = RepoConfig::Language.new(commit, hound_config)
+              language_config = RepoConfig::Language.new(hound_config)
 
               expect do
                 language_config.config("ruby")
@@ -71,14 +75,16 @@ describe RepoConfig::Language do
                 EOS
               )
               hound_config = double(
-                "HoundConfig", config: {
+                "HoundConfig",
+                commit: commit,
+                config: {
                   "ruby" => {
                     "enabled" => true,
                     "config_file" => "config/rubocop.yml",
                   },
                 }
               )
-              language_config = RepoConfig::Language.new(commit, hound_config)
+              language_config = RepoConfig::Language.new(hound_config)
 
               expect do
                 language_config.config("ruby")
@@ -104,14 +110,16 @@ describe RepoConfig::Language do
               EOS
             )
             hound_config = double(
-              "HoundConfig", config: {
+              "HoundConfig",
+              commit: commit,
+              config: {
                 "coffeescript" => {
                   "enabled" => true,
                   "config_file" => "config/coffeescript.json",
                 },
               },
             )
-            language_config = RepoConfig::Language.new(commit, hound_config)
+            language_config = RepoConfig::Language.new(hound_config)
 
             result = language_config.config("coffeescript")
 
@@ -133,14 +141,16 @@ describe RepoConfig::Language do
               EOS
             )
             hound_config = double(
-              "HoundConfig", config: {
+              "HoundConfig",
+              commit: commit,
+              config: {
                 "coffeescript" => {
                   "enabled" => true,
                   "config_file" => ".jshintrc",
                 },
               },
             )
-            language_config = RepoConfig::Language.new(commit, hound_config)
+            language_config = RepoConfig::Language.new(hound_config)
 
             result = language_config.config("coffeescript")
 
@@ -161,14 +171,16 @@ describe RepoConfig::Language do
                 EOS
               )
               hound_config = double(
-                "HoundConfig", config: {
+                "HoundConfig",
+                commit: commit,
+                config: {
                   "coffeescript" => {
                     "enabled" => true,
                     "config_file" => "config/coffeescript.json",
                   },
                 },
               )
-              language_config = RepoConfig::Language.new(commit, hound_config)
+              language_config = RepoConfig::Language.new(hound_config)
 
               expect do
                 language_config.config("coffeescript")
@@ -185,14 +197,16 @@ describe RepoConfig::Language do
         it "returns an empty hash" do
           commit = stubbed_commit("config/rubocop.yml" => "")
           hound_config = double(
-            "HoundConfig", config: {
+            "HoundConfig",
+            commit: commit,
+            config: {
               "ruby" => {
                 "enabled" => true,
                 "config_file" => "config/rubocop.yml",
               },
             },
           )
-          language_config = RepoConfig::Language.new(commit, hound_config)
+          language_config = RepoConfig::Language.new(hound_config)
 
           result = language_config.config("coffeescript")
 
@@ -214,14 +228,16 @@ describe RepoConfig::Language do
         EOS
         commit = stubbed_commit("config/rubocop.yml" => raw_config)
         hound_config = double(
-          "HoundConfig", config: {
+          "HoundConfig",
+          commit: commit,
+          config: {
             "ruby" => {
               "enabled" => true,
               "config_file" => "config/rubocop.yml",
             },
           },
         )
-        language_config = RepoConfig::Language.new(commit, hound_config)
+        language_config = RepoConfig::Language.new(hound_config)
 
         result = language_config.raw_config("ruby")
 
@@ -240,14 +256,16 @@ describe RepoConfig::Language do
         EOS
         commit = stubbed_commit("config/rubocop.yml" => raw_config)
         hound_config = double(
-          "HoundConfig", config: {
+          "HoundConfig",
+          commit: commit,
+          config: {
             "ruby" => {
               "enabled" => true,
               "config_file" => "",
             },
           },
         )
-        language_config = RepoConfig::Language.new(commit, hound_config)
+        language_config = RepoConfig::Language.new(hound_config)
 
         result = language_config.raw_config("ruby")
 

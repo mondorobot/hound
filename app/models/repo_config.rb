@@ -5,7 +5,7 @@ require "app/models/repo_config/hound"
 module RepoConfig
   def self.for(commit, language)
     hound_config = build_hound_config(commit)
-    config = build_and_merge_configs(commit, hound_config, language)
+    config = build_and_merge_configs(hound_config, language)
 
     Config.new(config: config, hound_config: hound_config)
   end
@@ -26,9 +26,9 @@ module RepoConfig
     Legacy,
   ]
 
-  def self.build_and_merge_configs(commit, hound_config, language)
+  def self.build_and_merge_configs(hound_config, language)
     configs = PARSERS.map do |config|
-      config.new(commit, hound_config).config(language)
+      config.new(hound_config).config(language)
     end
 
     configs.reduce({}) do |result, config|

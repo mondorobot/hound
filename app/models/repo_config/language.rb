@@ -11,7 +11,7 @@ module RepoConfig
       swift
     )
 
-    pattr_initialize :commit, :hound_config
+    pattr_initialize :hound_config
 
     def config(language)
       if has_language? language
@@ -82,7 +82,7 @@ module RepoConfig
 
     def content_for(filepath)
       if filepath.present?
-        commit.file_content(filepath)
+        hound_config.commit.file_content(filepath)
       else
         ""
       end

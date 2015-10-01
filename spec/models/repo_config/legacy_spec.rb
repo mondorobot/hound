@@ -14,8 +14,7 @@ describe RepoConfig::Legacy do
               "LineLength" => { "Max" => 90 },
             },
           )
-          commit = double("Commit")
-          legacy_config = RepoConfig::Legacy.new(commit, hound_config)
+          legacy_config = RepoConfig::Legacy.new(hound_config)
 
           result = legacy_config.config("ruby")
 
@@ -33,8 +32,7 @@ describe RepoConfig::Legacy do
             "LineLength" => { "Max" => 90 },
           },
         )
-        commit = double("Commit")
-        legacy_config = RepoConfig::Legacy.new(commit, hound_config)
+        legacy_config = RepoConfig::Legacy.new(hound_config)
 
         result = legacy_config.config("coffeescript")
 
@@ -53,8 +51,7 @@ describe RepoConfig::Legacy do
             },
           },
         )
-        commit = double("Commit")
-        legacy_config = RepoConfig::Legacy.new(commit, hound_config)
+        legacy_config = RepoConfig::Legacy.new(hound_config)
 
         result = legacy_config.config("ruby")
 
@@ -78,8 +75,7 @@ describe RepoConfig::Legacy do
                 Max: 90
             EOS
           )
-          commit = double("Commit")
-          legacy_config = RepoConfig::Legacy.new(commit, hound_config)
+          legacy_config = RepoConfig::Legacy.new(hound_config)
 
           result = legacy_config.raw_config("ruby")
 
@@ -101,8 +97,7 @@ describe RepoConfig::Legacy do
                 Max: 90
           EOS
         )
-        commit = double("Commit")
-        legacy_config = RepoConfig::Legacy.new(commit, hound_config)
+        legacy_config = RepoConfig::Legacy.new(hound_config)
 
         result = legacy_config.raw_config("coffeescript")
 
@@ -121,8 +116,7 @@ describe RepoConfig::Legacy do
             },
           },
         )
-        commit = double("Commit")
-        legacy_config = RepoConfig::Legacy.new(commit, hound_config)
+        legacy_config = RepoConfig::Legacy.new(hound_config)
 
         result = legacy_config.raw_config("ruby")
 
