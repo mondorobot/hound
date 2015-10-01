@@ -1,5 +1,5 @@
 require "spec_helper"
-require "app/models/repo_config"
+require "app/models/repository_config"
 
 describe RepoConfig do
   describe ".for" do
