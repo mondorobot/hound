@@ -55,7 +55,7 @@ module Linter
     end
 
     def custom_config
-      HamlLint::Configuration.new(repo_config.for(name))
+      HamlLint::Configuration.new(repo_config.config)
     end
 
     def default_config

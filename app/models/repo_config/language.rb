@@ -10,6 +10,10 @@ module RepoConfig
       scss
       swift
     )
+    BETA_LANGUAGES = %w(
+      python
+      swift
+    )
 
     pattr_initialize :hound_config
 

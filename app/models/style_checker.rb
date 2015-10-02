@@ -33,6 +33,7 @@ class StyleChecker
 
   def build_linter(filename)
     linter_class = find_linter_class(filename)
+    config = build_config name_for(linter_class)
     linters[linter_class] ||= linter_class.new(
       repo_config: config,
       build: build,
@@ -44,7 +45,11 @@ class StyleChecker
     LINTERS.detect { |linter_class| linter_class.can_lint?(filename) }
   end
 
-  def config
-    @config ||= RepoConfig.new(pull_request.head_commit)
+  def build_config(language)
+    RepoConfig.for(pull_request.head_commit, language)
+  end
+
+  def name_for(linter_class)
+    linter_class.name.split("::").last.downcase
   end
 end

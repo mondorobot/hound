@@ -17,13 +17,55 @@ module RepoConfig
       @config = config
       @hound_config = hound_config
     end
+
+    delegate :[], to: :hound_config
+
+    def enabled_for?(language)
+      !disabled?(language)
+    end
+
+    def raw_config
+      # dump the formatted config.
+    end
+
+    private
+
+    def beta?(language)
+      Language::BETA_LANGUAGES.include?(language)
+    end
+
+    def default_options_for(language)
+      { "enabled" => !beta?(language) }
+    end
+
+    def options_for(language)
+      hound_config[language] ||
+        hound_config[language_camelize(language)] ||
+        default_options_for(language)
+    end
+
+    def disabled?(language)
+      options = options_for(language)
+      options["enabled"] == false || options["Enabled"] == false
+    end
+
+    def language_camelize(language)
+      case language.downcase
+      when "coffeescript"
+        "CoffeeScript"
+      when "javascript"
+        "JavaScript"
+      else
+        language.camelize
+      end
+    end
   end
 
   private
 
   PARSERS = [
-    Language,
-    Legacy,
+    RepoConfig::Language,
+    RepoConfig::Legacy,
   ]
 
   def self.build_and_merge_configs(hound_config, language)
