@@ -1,10 +1,13 @@
 class RemoveHoundFromRepo < ManageHound
   def run
-    if repo.organization
-      remove_repo_from_services_team
-    else
-      remove_hound_from_repo
-    end
+    # if repo.organization
+    #   remove_repo_from_services_team
+    # else
+    #   remove_hound_from_repo
+    # end
+
+    # should we remove user from Services team if it exists?
+    remove_hound_from_repo
   end
 
   private

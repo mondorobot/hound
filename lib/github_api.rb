@@ -124,7 +124,12 @@ class GithubApi
   end
 
   def add_collaborator(repo_name, username)
-    client.add_collaborator(repo_name, username)
+    client.add_collaborator(
+      repo_name,
+      username,
+      accept: "application/vnd.github.ironman-preview+json",
+      permission: "pull"
+    )
   end
 
   def remove_collaborator(repo_name, username)
