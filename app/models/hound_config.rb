@@ -22,7 +22,7 @@ class HoundConfig
   end
 
   def enabled_for?(name)
-    supported_language?(name) || legacy_key?(name) || enabled?(name)
+    supported_language?(name) || configured?(name)
   end
 
   def fail_on_violations?
@@ -31,25 +31,24 @@ class HoundConfig
 
   private
 
-  LEGACY_LANGUAGE_KEY = %w(
-    coffee_script
-    java_script
-  )
-
   def parse(file_content)
     Config::Parser.yaml(file_content) || {}
   end
 
   def supported_language?(name)
-    (LANGUAGES - BETA_LANGUAGES).include?(name)
+    key = normalize_key(name)
+
+    (LANGUAGES - BETA_LANGUAGES).include?(key) && configured?(key)
   end
 
-  def legacy_key?(name)
-    LEGACY_LANGUAGE_KEY.include?(name)
+  def configured?(name)
+    key = normalize_key(name)
+
+    content[key] &&
+      (content[key]["enabled"] || content[key]["Enabled"])
   end
 
-  def enabled?(name)
-    content[name] &&
-      (content[name]["enabled"] || content[name]["Enabled"])
+  def normalize_key(key)
+    key.downcase.sub("_", "")
   end
 end

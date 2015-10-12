@@ -25,7 +25,37 @@ describe HoundConfig do
   describe "#enabled_for?" do
     context "given a supported language" do
       it "returns true for all of them" do
-        commit = stubbed_commit(".hound.yml" => "")
+        commit = stubbed_commit(
+          ".hound.yml" => <<-EOS.strip_heredoc
+            ruby:
+              enabled: true
+              config_file: config/rubocop.yml
+
+            coffeescript:
+              enabled: true
+              config_file: coffeelint.json
+
+            javascript:
+              enabled: true
+              config_file: config/javascript.json
+
+            scss:
+              enabled: true
+              config_file: config/scss.yml
+
+            haml:
+              enabled: true
+              config_file: config/haml.json
+
+            go:
+              enabled: true
+              config_file: config/go.txt
+
+            swift:
+              enabled: true
+              config_file: config/swift.txt
+          EOS
+        )
         hound_config = HoundConfig.new(commit)
 
         supported_languages =
@@ -33,6 +63,20 @@ describe HoundConfig do
         supported_languages.each do |language|
           expect(hound_config).to be_enabled_for(language)
         end
+      end
+    end
+
+    context "when the given language is disabled" do
+      it "returns false" do
+        commit = stubbed_commit(
+          ".hound.yml" => <<-EOS.strip_heredoc
+            scss:
+              enabled: false
+          EOS
+        )
+        hound_config = HoundConfig.new(commit)
+
+        expect(hound_config).not_to be_enabled_for("scss")
       end
     end
 
